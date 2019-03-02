@@ -1,6 +1,8 @@
 var express = require("express");
 var bodyParser = require('body-parser');
-var login = require('./routes/loginRoutes');
+var login = require('./routes/auth/auth');
+var VerifyToken = require('./routes/auth/VerifyToken');
+
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -16,6 +18,7 @@ router.get('/', function(req, res) {
 });
 //route to handle user registration
 router.post('/register',login.register);
-router.post('/login',login.login)
+router.post('/login',login.login);
+router.post('/test', VerifyToken, login.test);
 app.use('/api', router);
 app.listen(5000);
