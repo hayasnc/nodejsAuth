@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "cryptr": "^4.0.2",
     "express": "^4.16.4",
     "formidable": "^1.2.1",
     "mysql": "^2.16.0",

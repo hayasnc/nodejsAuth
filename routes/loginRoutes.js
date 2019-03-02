@@ -1,4 +1,6 @@
 var connection = require('../database');
+var Cryptr = require('cryptr');
+const cryptr = new Cryptr('6pGBHAcjyf');
 
 exports.register = function (req, res) {
     // console.log("req",req.body);
@@ -7,7 +9,7 @@ exports.register = function (req, res) {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         email: req.body.email,
-        password: req.body.password,
+        password: cryptr.encrypt(req.body.password),
         phone: req.body.phone,
         created: today,
         modified: today
@@ -48,7 +50,7 @@ exports.login = function (req, res) {
             // console.log('The solution is: ', results);
             if (results.length > 0) {
                 console.log(results);
-                if (results[0].password == password) {
+                if (cryptr.decrypt(results[0].password) === password) {
                     res.send({
                         "code": 200,
                         "success": "login sucessfull",
